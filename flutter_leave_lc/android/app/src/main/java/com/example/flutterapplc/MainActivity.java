@@ -1,11 +1,18 @@
 package com.example.flutterapplc;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
+
+import cn.leancloud.LCException;
 import cn.leancloud.LCLogger;
 import cn.leancloud.LeanCloud;
-import cn.leancloud.mi.LCMixPushManager;
+import cn.leancloud.callback.LCCallback;
+import cn.leancloud.hms.LCMixPushManager;
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
@@ -37,12 +44,6 @@ public class MainActivity extends FlutterActivity {
     private static final String LC_APP_ID_Test = "6HKynQEeIYeWpHmF9e7ocY5R-TeStHjQi";
     private static final String LC_APP_KEY_Test = "FLx5kVKBU04k6SxmuIVndMNy";
     private static final String LC_SERVER_URL_Test = "https://api.uc-test1.leancloud.cn";
-//appstore_xsui
-    private static final String XIAOMI_APP = "2882303761520227426";
-    private static final String XIAOMI_KEY = "5202022724426";
-////xsui_platform
-//private static final String XIAOMI_APP = "2882303761517988199";
-//    private static final String XIAOMI_KEY = "5571798886199";
 
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
@@ -54,7 +55,18 @@ public class MainActivity extends FlutterActivity {
                             if (call.method.equals("initLC-NorthChina")) {
                                 LeanCloud.setLogLevel(LCLogger.Level.DEBUG);
                                 LeanCloud.initialize(this, LC_APP_ID_NorthChina, LC_APP_KEY_NorthChina, LC_SERVER_URL_NorthChina);
-                                LCMixPushManager.registerXiaomiPush(this, XIAOMI_APP, XIAOMI_KEY,"appstore_xsui");
+                                LCMixPushManager.registerHMSPush(getApplication(), "appstore_xsui");
+                                LCMixPushManager.connectHMS(this);
+                                LCMixPushManager.turnOnHMSPush(MainActivity.this, new LCCallback<Void>() {
+                                    @Override
+                                    protected void internalDone0(Void aVoid, LCException LCException) {
+                                        if (null != LCException) {
+                                            System.out.println("failed to turn on HMS Push, cause: " + LCException.getMessage());
+                                        } else {
+                                            System.out.println("succeed to turn on HMS Push.");
+                                        }
+                                    }
+                                });
                             } else {
                                 result.notImplemented();
                             }
@@ -67,8 +79,18 @@ public class MainActivity extends FlutterActivity {
                             if (call.method.equals("initLC-EastChina")) {
                                 LeanCloud.setLogLevel(LCLogger.Level.DEBUG);
                                 LeanCloud.initialize(this, LC_APP_ID_EastChina, LC_APP_KEY_EastChina, LC_SERVER_URL_EastChina);
-                                LCMixPushManager.registerXiaomiPush(this, XIAOMI_APP, XIAOMI_KEY,"appstore_xsui");
-
+                                LCMixPushManager.registerHMSPush(getApplication(), "appstore_xsui");
+                                LCMixPushManager.connectHMS(this);
+                                LCMixPushManager.turnOnHMSPush(MainActivity.this, new LCCallback<Void>() {
+                                    @Override
+                                    protected void internalDone0(Void aVoid, LCException LCException) {
+                                        if (null != LCException) {
+                                            System.out.println("failed to turn on HMS Push, cause: " + LCException.getMessage());
+                                        } else {
+                                            System.out.println("succeed to turn on HMS Push.");
+                                        }
+                                    }
+                                });
                             } else {
                                 result.notImplemented();
                             }
@@ -81,8 +103,18 @@ public class MainActivity extends FlutterActivity {
                             if (call.method.equals("initLC-US")) {
                                 LeanCloud.setLogLevel(LCLogger.Level.DEBUG);
                                 LeanCloud.initialize(this, LC_APP_ID_US, LC_APP_KEY_US, LC_SERVER_URL_US);
-                                LCMixPushManager.registerXiaomiPush(this, XIAOMI_APP, XIAOMI_KEY,"appstore_xsui");
-
+                                LCMixPushManager.registerHMSPush(getApplication(), "appstore_xsui");
+                                LCMixPushManager.connectHMS(this);
+                                LCMixPushManager.turnOnHMSPush(MainActivity.this, new LCCallback<Void>() {
+                                    @Override
+                                    protected void internalDone0(Void aVoid, LCException LCException) {
+                                        if (null != LCException) {
+                                            System.out.println("failed to turn on HMS Push, cause: " + LCException.getMessage());
+                                        } else {
+                                            System.out.println("succeed to turn on HMS Push.");
+                                        }
+                                    }
+                                });
                             } else {
                                 result.notImplemented();
                             }
@@ -95,8 +127,18 @@ public class MainActivity extends FlutterActivity {
                             if (call.method.equals("initTDS")) {
                                 LeanCloud.setLogLevel(LCLogger.Level.DEBUG);
                                 LeanCloud.initialize(this, LC_APP_ID_TDS, LC_APP_KEY_TDS, LC_SERVER_URL_TDS);
-                                LCMixPushManager.registerXiaomiPush(this, XIAOMI_APP, XIAOMI_KEY,"appstore_xsui");
-
+                                LCMixPushManager.registerHMSPush(getApplication(), "appstore_xsui");
+                                LCMixPushManager.connectHMS(this);
+                                LCMixPushManager.turnOnHMSPush(MainActivity.this, new LCCallback<Void>() {
+                                    @Override
+                                    protected void internalDone0(Void aVoid, LCException LCException) {
+                                        if (null != LCException) {
+                                            System.out.println("failed to turn on HMS Push, cause: " + LCException.getMessage());
+                                        } else {
+                                            System.out.println("succeed to turn on HMS Push.");
+                                        }
+                                    }
+                                });
                             } else {
                                 result.notImplemented();
                             }
@@ -109,7 +151,18 @@ public class MainActivity extends FlutterActivity {
                             if (call.method.equals("init-Test")) {
                                 LeanCloud.setLogLevel(LCLogger.Level.DEBUG);
                                 LeanCloud.initialize(this, LC_APP_ID_Test, LC_APP_KEY_Test, LC_SERVER_URL_Test);
-                                LCMixPushManager.registerXiaomiPush(this, XIAOMI_APP, XIAOMI_KEY,"appstore_xsui");
+                                LCMixPushManager.registerHMSPush(getApplication(), "appstore_xsui");
+                                LCMixPushManager.connectHMS(this);
+                                LCMixPushManager.turnOnHMSPush(MainActivity.this, new LCCallback<Void>() {
+                                    @Override
+                                    protected void internalDone0(Void aVoid, LCException LCException) {
+                                        if (null != LCException) {
+                                            System.out.println("failed to turn on HMS Push, cause: " + LCException.getMessage());
+                                        } else {
+                                            System.out.println("succeed to turn on HMS Push.");
+                                        }
+                                    }
+                                });
                             } else {
                                 result.notImplemented();
                             }
